@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auto škola Dule — obuka vozača u Kruševcu i Varvarinu</title>
+<meta name="description" content="Auto škola Dule, Kruševac i Varvarin. Obuka za kategorije A, A1, A2, AM, B, BE, C i CE, online upis, online predavanja i kondicioni časovi vožnje.">
+<meta name="theme-color" content="#0b0d10">
+<link rel="canonical" href="https://autoskoladule.rs/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Auto škola Dule — Kruševac i Varvarin">
+<meta property="og:description" content="Obuka za 8 kategorija, online upis i online predavanja. Dve lokacije: Kruševac i Varvarin.">
+<meta property="og:url" content="https://autoskoladule.rs/">
+<!-- PLACEHOLDER: og:image — dodati sliku 1200x630 px -->
+<meta property="og:image" content="images/og-cover.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "DrivingSchool",
+  "name": "Auto škola Dule",
+  "url": "https://autoskoladule.rs/",
+  "email": "autoskoladule@gmail.com",
+  "telephone": "+381606037037",
+  "sameAs": [
+    "https://www.facebook.com/dule.autoskola/",
+    "https://www.instagram.com/autoskoladule/",
+    "https://www.youtube.com/channel/UC92BBUXjT8KW2FbSgrHSTdQ"
+  ],
+  "location": [
+    {
+      "@type": "Place",
+      "name": "Auto škola Dule — Kruševac",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Slobodana Jovanovića 6",
+        "addressLocality": "Kruševac",
+        "addressCountry": "RS"
+      },
+      "openingHours": ["Mo-Fr 09:00-17:00", "Sa 09:00-14:00"]
+    },
+    {
+      "@type": "Place",
+      "name": "Auto škola Dule — Varvarin",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Slobode 94",
+        "addressLocality": "Varvarin",
+        "addressCountry": "RS"
+      },
+      "openingHours": ["Mo-Fr 08:00-15:00"]
+    }
+  ]
+}
+</script>
+</head>
+
+<body>
+<a class="preskoci-na-sadrzaj" href="#sadrzaj">Preskoči na sadržaj</a>
+
+<!-- ==========================================================
+     CINEMATIC INTRO
+     Sloj 1: video (ako fajl postoji)
+     Sloj 2: SVG/canvas scena — uvek radi, i bez ijednog assets fajla
+     ========================================================== -->
+<!-- intro je skriven dok ga main.js uspešno ne pokrene; ako JS otkaže, sajt se vidi normalno -->
+<div class="intro" id="intro" hidden role="dialog" aria-label="Uvodna scena" aria-modal="true">
+
+  <div class="intro__kamera" id="kamera" aria-hidden="true">
+
+    <!-- opcioni video sloj -->
+    <!-- Kad dodaš snimak, upiši putanje u data- atribute; JS ih tek tada učitava.
+         Prazni atributi znače: koristi se scena ispod i nema nijednog mrežnog zahteva. -->
+    <video class="intro__video" id="introVideo" muted playsinline preload="none"
+           data-mp4="" data-webm="" data-poster=""
+           data-uputstvo="Upiši video/intro.mp4 i images/intro-poster.jpg kad snimak bude gotov"></video>
+
+    <!-- scena bez video fajla -->
+    <div class="scena" id="scena">
+      <div class="scena__nebo"></div>
+
+      <!-- put, središnja linija, siluete grada — perspektivna projekcija -->
+      <canvas class="scena__put" id="putCanvas"></canvas>
+
+      <div class="scena__magla"></div>
+
+      <div class="scena__vozilo" id="vozilo">
+       <div class="scena__vozilo-telo">
+        <svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Automobil na putu noću">
+          <defs>
+            <linearGradient id="lak" x1=".25" y1="0" x2=".75" y2="1">
+              <stop offset="0"   stop-color="#f6f9fc"/>
+              <stop offset=".18" stop-color="#dce4ec"/>
+              <stop offset=".44" stop-color="#aeb9c6"/>
+              <stop offset=".7"  stop-color="#7b8794"/>
+              <stop offset=".88" stop-color="#525d69"/>
+              <stop offset="1"   stop-color="#3a434d"/>
+            </linearGradient>
+            <linearGradient id="lakKrov" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0"   stop-color="#eef4fa"/>
+              <stop offset=".6"  stop-color="#b6c2cf"/>
+              <stop offset="1"   stop-color="#8d99a7"/>
+            </linearGradient>
+            <linearGradient id="staklo" x1=".2" y1="0" x2=".7" y2="1">
+              <stop offset="0"   stop-color="#4179bd"/>
+              <stop offset=".35" stop-color="#1e4479"/>
+              <stop offset=".75" stop-color="#112a4e"/>
+              <stop offset="1"   stop-color="#0a1830"/>
+            </linearGradient>
+            <linearGradient id="odsjaj" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0"   stop-color="#fff" stop-opacity="0"/>
+              <stop offset=".4"  stop-color="#fff" stop-opacity=".3"/>
+              <stop offset=".65" stop-color="#fff" stop-opacity=".06"/>
+              <stop offset="1"   stop-color="#fff" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="stop" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0"   stop-color="#ff8f82"/>
+              <stop offset=".42" stop-color="#d81f2a"/>
+              <stop offset="1"   stop-color="#78120e"/>
+            </linearGradient>
+            <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0"   stop-color="#e3e9f0"/>
+              <stop offset=".5"  stop-color="#8b96a3"/>
+              <stop offset="1"   stop-color="#3a434d"/>
+            </linearGradient>
+            <linearGradient id="tablicaSjaj" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0"   stop-color="#ffffff"/>
+              <stop offset=".55" stop-color="#f2f6fa"/>
+              <stop offset="1"   stop-color="#d3dbe4"/>
+            </linearGradient>
+            <radialGradient id="senka" cx=".5" cy=".5" r=".5">
+              <stop offset="0" stop-color="#000" stop-opacity=".92"/>
+              <stop offset="1" stop-color="#000" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="lampaTablice" cx=".5" cy="0" r="1">
+              <stop offset="0"   stop-color="#fff" stop-opacity=".55"/>
+              <stop offset="1"   stop-color="#fff" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="sjaj" x="-90%" y="-90%" width="280%" height="280%">
+              <feGaussianBlur stdDeviation="7" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="mekano" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="7"/>
+            </filter>
+          </defs>
+
+          <!-- senka -->
+          <ellipse cx="320" cy="352" rx="262" ry="30" fill="url(#senka)"/>
+
+          <!-- točkovi, široko razmaknuti -->
+          <path d="M92 288h78v54a10 10 0 0 1-10 10h-58a10 10 0 0 1-10-10z" fill="#06080b"/>
+          <path d="M470 288h78v54a10 10 0 0 1-10 10h-58a10 10 0 0 1-10-10z" fill="#06080b"/>
+          <path d="M100 344h58M482 344h58" stroke="#252d36" stroke-width="3" opacity=".9"/>
+
+          <!-- niska, zategnuta linija krova -->
+          <path d="M186 196c14-52 58-80 134-80s120 28 134 80z" fill="url(#lakKrov)"/>
+          <path d="M202 192c12-42 52-64 118-64s106 22 118 64z" fill="url(#staklo)"/>
+          <path d="M216 156c22-18 58-26 104-26s82 8 104 26l6 12H210z" fill="url(#odsjaj)" opacity=".5"/>
+          <path d="M248 170l64 8" stroke="#0b1730" stroke-width="3" stroke-linecap="round" opacity=".8"/>
+
+          <!-- široka karoserija sa izvučenim bokovima -->
+          <path d="M84 318V250c0-38 22-58 66-64h340c44 6 66 26 66 64v68c0 10-7 17-17 17H101c-10 0-17-7-17-17z"
+                fill="url(#lak)" stroke="#eaf0f6" stroke-width="1.6"/>
+          <path d="M84 260c0-34 20-54 52-62v122c-34-6-52-24-52-46z" fill="#c3cdd9" opacity=".45"/>
+          <path d="M556 260c0-34-20-54-52-62v122c34-6 52-24 52-46z" fill="#c3cdd9" opacity=".45"/>
+          <path d="M92 244c78-20 378-20 456 0" fill="none" stroke="#fff" stroke-width="1.8" opacity=".45"/>
+
+          <!-- ivica prtljažnika sa trećim stop svetlom -->
+          <path d="M170 196h300c12 0 18 6 18 12H152c0-6 6-12 18-12z" fill="#b8c4d1"/>
+          <rect class="vozilo__stop" x="272" y="199" width="96" height="6" rx="3" fill="url(#stop)" filter="url(#sjaj)"/>
+
+          <!-- svetlosna traka preko celog zadnjeg kraja -->
+          <g class="vozilo__stop">
+            <rect x="98" y="212" width="444" height="26" rx="13" fill="#141a21"/>
+            <rect x="104" y="216" width="432" height="18" rx="9" fill="url(#stop)" filter="url(#sjaj)"/>
+            <rect x="132" y="221" width="376" height="6" rx="3" fill="#ffe3de" opacity=".85"/>
+          </g>
+          <g class="vozilo__zmigavac">
+            <rect x="104" y="216" width="80" height="18" rx="9" fill="#ffa51f" filter="url(#sjaj)"/>
+            <rect x="456" y="216" width="80" height="18" rx="9" fill="#ffa51f" filter="url(#sjaj)"/>
+          </g>
+
+          <!-- TABLICA — krupnija, osvetljena, sa hromiranim ramom -->
+          <g class="vozilo__tablica">
+            <ellipse cx="320" cy="252" rx="132" ry="42" fill="url(#lampaTablice)" opacity=".85"/>
+            <rect x="234" y="246" width="172" height="52" rx="6" fill="url(#metal)"/>
+            <rect x="238" y="250" width="164" height="44" rx="4" fill="url(#tablicaSjaj)"/>
+            <rect x="238" y="250" width="22" height="44" rx="4" fill="#123a8f"/>
+            <text x="249" y="277" text-anchor="middle" font-family="JetBrains Mono, monospace"
+                  font-size="10" fill="#eaf0ff">SRB</text>
+            <text x="332" y="285" text-anchor="middle" font-family="Antonio, Oswald, Arial Narrow, sans-serif"
+                  font-size="40" font-weight="700" letter-spacing="3.5" fill="#0d1117">DULE</text>
+          </g>
+
+          <!-- branik, difuzor, auspusi -->
+          <path d="M88 300h464v28c0 8-6 14-14 14H102c-8 0-14-6-14-14z" fill="#8994a2"/>
+          <path d="M88 300h464v6H88z" fill="#e4ebf2" opacity=".5"/>
+          <path d="M232 312h176v18H232z" fill="#0e1319"/>
+          <path d="M238 318h164" stroke="#242c35" stroke-width="2"/>
+          <rect x="146" y="310" width="34" height="10" rx="5" fill="#c8202b" opacity=".9"/>
+          <rect x="460" y="310" width="34" height="10" rx="5" fill="#c8202b" opacity=".9"/>
+          <rect id="auspuhTacka" x="420" y="326" width="48" height="15" rx="7.5"
+                fill="#070a0d" stroke="url(#metal)" stroke-width="2"/>
+          <rect x="172" y="326" width="48" height="15" rx="7.5"
+                fill="#070a0d" stroke="url(#metal)" stroke-width="2" opacity=".85"/>
+
+          <!-- odsjaj svetala na asfaltu -->
+          <g class="vozilo__odraz" filter="url(#mekano)" opacity=".55">
+            <rect x="110" y="356" width="420" height="28" rx="14" fill="#d81f2a" opacity=".45"/>
+          </g>
+        </svg>
+       </div>
+      </div>
+
+    </div>
+
+    <div class="intro__vinjeta"></div>
+    <div class="intro__zrno"></div>
+  </div>
+
+  <!-- dim: isti oblak u dva sloja — jedan iza teksta, jedan ispred njega,
+       pa se slova formiraju unutar oblaka, a ne ispod njega -->
+  <canvas class="scena__dim" id="dimCanvas" aria-hidden="true"></canvas>
+  <canvas class="scena__dim scena__dim--ispred" id="dimPredCanvas" aria-hidden="true"></canvas>
+
+  <div class="intro__sadrzaj">
+    <p class="intro__linija" id="introLinija">Vreme je za vožnju.</p>
+    <p class="intro__pod" id="introPod">Tvoj prvi kilometar.</p>
+    <div class="intro__start" id="introStart">
+      <div class="pedale" id="pedale">
+
+        <!-- kvačilo i kočnica su čisto vizuelni elementi -->
+        <div class="pedala pedala--staticna" aria-hidden="true">
+          <span class="pedala__ploca"><i></i></span>
+          <span class="pedala__ime">Kvačilo</span>
+        </div>
+
+        <div class="pedala pedala--staticna" aria-hidden="true">
+          <span class="pedala__ploca pedala__ploca--siroka"><i></i></span>
+          <span class="pedala__ime">Kočnica</span>
+        </div>
+
+        <!-- jedina interaktivna papučica -->
+        <button class="pedala pedala--gas" type="button" id="pedalaGas"
+                aria-describedby="pedaleUput">
+          <span class="pedala__ploca pedala__ploca--uska" aria-hidden="true"><i></i></span>
+          <span class="pedala__ime">Gas</span>
+        </button>
+
+      </div>
+      <p class="pedale__uput" id="pedaleUput" role="status">
+        Pritisni <b>gas</b> i ulaziš na sajt
+      </p>
+    </div>
+  </div>
+
+  <div class="intro__alatke">
+    <button type="button" id="dugmeZvuk" aria-pressed="false">
+      <svg class="ikona-zvuk" width="14" height="14" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M11 5 6 9H2v6h4l5 4z"/>
+        <path class="talas" d="M15.5 8.5a5 5 0 0 1 0 7"/>
+        <path class="talas talas--2" d="M18.5 5.5a9 9 0 0 1 0 13"/>
+        <path class="precrtano" d="M3 3l18 18"/>
+      </svg>
+      <span id="tekstZvuk">Uključi zvuk</span>
+    </button>
+    <button type="button" id="dugmePreskoci">Preskoči uvod</button>
+  </div>
+</div>
+
+<!-- skrol traka -->
+<div class="traka" aria-hidden="true"><div class="traka__napredak" id="trakaNapredak"></div></div>
+
+<!-- ==========================================================
+     ZAGLAVLJE
+     ========================================================== -->
+<header class="zaglavlje" id="zaglavlje">
+  <div class="omot zaglavlje__red">
+    <a class="logo" href="#pocetna" aria-label="Auto škola Dule — početna">
+      <!-- PLACEHOLDER: kad stigne logo u visokoj rezoluciji, dodaj ga kao
+           srcset="images/logo.png 1x, images/logo@2x.png 2x" -->
+      <img class="logo__slika" alt="Auto škola Dule" width="234" height="242"
+           src="images/logo.png"
+           onerror="this.closest('.logo').classList.add('logo--bez-slike')">
+      <span class="logo__tekst" aria-hidden="true">Auto škola <b>Dule</b></span>
+    </a>
+
+    <nav class="meni" id="meni" aria-label="Glavna navigacija">
+      <a href="#pocetna">Početna</a>
+      <a href="#kategorije">Kategorije</a>
+      <a href="#obuka">Obuka</a>
+      <a href="#tim">Instruktori</a>
+      <a href="#cenovnik">Cenovnik</a>
+      <a href="#upis">Online upis</a>
+      <a href="#faq">Pitanja</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+
+    <a class="dugme dugme--puno zaglavlje__cta"
+       href="https://autoskoladule.rs/online-upis/">Upiši se</a>
+
+    <button class="meni-taster" id="meniTaster" aria-expanded="false" aria-controls="meni">
+      <span class="crte" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span id="meniTekst">Meni</span>
+    </button>
+  </div>
+</header>
+
+<main id="sadrzaj">
+
+<!-- ==========================================================
+     HERO
+     ========================================================== -->
+<section class="hero" id="pocetna">
+  <div class="omot hero__sredina">
+    <p class="oznaka oznaka--sredina">Kruševac &nbsp;/&nbsp; Varvarin</p>
+
+    <div class="hero__znak">
+      <p class="hero__parola hero__parola--levo">Budi deo<br>našeg tima</p>
+      <h1 class="hero__naslov">
+        <img class="hero__logo" width="234" height="242" fetchpriority="high"
+             src="images/logo.png" alt="Auto škola Dule">
+      </h1>
+      <p class="hero__parola hero__parola--desno">Zajedno<br>ka uspehu</p>
+    </div>
+
+    <!-- instrument tabla: dve fotografije i brzinomer između njih -->
+    <div class="hero__tabla">
+      <figure class="ciferblat ciferblat--foto">
+          <img src="images/ciferblat-skuteri.jpg" width="250" height="250" alt="Instruktorke Auto škole Dule pored skutera i motocikala">
+          <svg class="ciferblat__prsten" viewBox="0 0 400 400" aria-hidden="true"><circle cx="200" cy="200" r="194" fill="none" stroke="currentColor" stroke-width="2" opacity=".5"/><path d="M200.0 14.0 L200.0 30.0 M219.4 15.0 L218.6 23.0 M238.7 18.1 L237.0 25.9 M257.5 23.1 L255.0 30.7 M275.7 30.1 L272.4 37.4 M293.0 38.9 L285.0 52.8 M309.3 49.5 L304.6 56.0 M324.5 61.8 L319.1 67.7 M338.2 75.5 L332.3 80.9 M350.5 90.7 L344.0 95.4 M361.1 107.0 L347.2 115.0 M369.9 124.3 L362.6 127.6 M376.9 142.5 L369.3 145.0 M381.9 161.3 L374.1 163.0 M385.0 180.6 L377.0 181.4 M386.0 200.0 L370.0 200.0 M385.0 219.4 L377.0 218.6 M381.9 238.7 L374.1 237.0 M376.9 257.5 L369.3 255.0 M369.9 275.7 L362.6 272.4 M361.1 293.0 L347.2 285.0 M350.5 309.3 L344.0 304.6 M338.2 324.5 L332.3 319.1 M324.5 338.2 L319.1 332.3 M309.3 350.5 L304.6 344.0 M293.0 361.1 L285.0 347.2 M275.7 369.9 L272.4 362.6 M257.5 376.9 L255.0 369.3 M238.7 381.9 L237.0 374.1 M219.4 385.0 L218.6 377.0 M200.0 386.0 L200.0 370.0 M180.6 385.0 L181.4 377.0 M161.3 381.9 L163.0 374.1 M142.5 376.9 L145.0 369.3 M124.3 369.9 L127.6 362.6 M107.0 361.1 L115.0 347.2 M90.7 350.5 L95.4 344.0 M75.5 338.2 L80.9 332.3 M61.8 324.5 L67.7 319.1 M49.5 309.3 L56.0 304.6 M38.9 293.0 L52.8 285.0 M30.1 275.7 L37.4 272.4 M23.1 257.5 L30.7 255.0 M18.1 238.7 L25.9 237.0 M15.0 219.4 L23.0 218.6 M14.0 200.0 L30.0 200.0 M15.0 180.6 L23.0 181.4 M18.1 161.3 L25.9 163.0 M23.1 142.5 L30.7 145.0 M30.1 124.3 L37.4 127.6 M38.9 107.0 L52.8 115.0 M49.5 90.7 L56.0 95.4 M61.8 75.5 L67.7 80.9 M75.5 61.8 L80.9 67.7 M90.7 49.5 L95.4 56.0 M107.0 38.9 L115.0 52.8 M124.3 30.1 L127.6 37.4 M142.5 23.1 L145.0 30.7 M161.3 18.1 L163.0 25.9 M180.6 15.0 L181.4 23.0" stroke="currentColor" stroke-width="2.4" opacity=".55"/></svg>
+          <figcaption>A · A1 · A2 · AM</figcaption>
+        </figure>
+
+      <div class="ciferblat ciferblat--brzinomer">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="none">
+        <circle cx="200" cy="200" r="192" fill="none" stroke="currentColor" stroke-width="1" opacity=".35"/>
+        <path d="M55.8 300.9 A176.0 176.0 0 1 1 344.2 300.9" fill="none" stroke="currentColor" stroke-width="2" opacity=".55"/>
+        <path class="brzinomer__zona" d="M374.8 179.6 A176.0 176.0 0 0 1 344.2 300.9" fill="none" stroke="#e2372b" stroke-width="9" stroke-linecap="round" opacity=".85"/>
+        <path d="M54.5 266.6 L43.6 271.6 M40.3 210.5 L28.4 211.2 M47.1 153.0 L35.6 149.5 M73.8 101.7 L64.3 94.3 M117.0 63.2 L110.8 53.0 M171.1 42.6 L168.9 30.8 M228.9 42.6 L231.1 30.8 M283.0 63.2 L289.2 53.0 M326.2 101.7 L335.7 94.3 M352.9 153.0 L364.4 149.5 M359.7 210.5 L371.6 211.2 M345.5 266.6 L356.4 271.6" stroke="currentColor" stroke-width="1.4" opacity=".4"/>
+        <path d="M77.1 286.0 L59.1 298.7 M54.6 236.7 L33.2 242.1 M51.0 182.6 L29.2 180.0 M66.9 130.7 L47.4 120.6 M100.3 87.9 L85.7 71.5 M146.7 59.8 L138.8 39.2 M200.0 50.0 L200.0 28.0 M253.3 59.8 L261.2 39.2 M299.7 87.9 L314.3 71.5 M333.1 130.7 L352.6 120.6 M349.0 182.6 L370.8 180.0 M345.4 236.7 L366.8 242.1 M322.9 286.0 L340.9 298.7" stroke="currentColor" stroke-width="3" opacity=".75" stroke-linecap="round"/>
+        <text x="91.9" y="275.7" text-anchor="middle" dominant-baseline="middle" font-family="JetBrains Mono, monospace" font-size="15" fill="currentColor" opacity=".8">0</text>
+        <text x="68.9" y="184.7" text-anchor="middle" dominant-baseline="middle" font-family="JetBrains Mono, monospace" font-size="15" fill="currentColor" opacity=".8">40</text>
+        <text x="112.2" y="101.4" text-anchor="middle" dominant-baseline="middle" font-family="JetBrains Mono, monospace" font-size="15" fill="currentColor" opacity=".8">80</text>
+        <text x="200.0" y="68.0" text-anchor="middle" dominant-baseline="middle" font-family="JetBrains Mono, monospace" font-size="15" fill="currentColor" opacity=".8">120</text>
+        <text x="287.8" y="101.4" text-anchor="middle" dominant-baseline="middle" font-family="JetBrains Mono, monospace" font-size="15" fill="currentColor" opacity=".8">160</text>
+        <text x="331.1" y="184.7" text-anchor="middle" dominant-baseline="middle" font-family="JetBrains Mono, monospace" font-size="15" fill="currentColor" opacity=".8">200</text>
+        <text x="308.1" y="275.7" text-anchor="middle" dominant-baseline="middle" font-family="JetBrains Mono, monospace" font-size="15" fill="currentColor" opacity=".8">240</text>
+        <text x="200" y="288" text-anchor="middle" font-family="JetBrains Mono, monospace"
+              font-size="13" letter-spacing="4" fill="currentColor" opacity=".55">KM/H</text>
+      </g>
+
+      <!-- kazaljka: nacrtana uspravno, ugao postavlja animacija -->
+      <g class="brzinomer__kazaljka">
+        <path d="M200 62 L205.5 196 Q200 206 194.5 196 Z" fill="#ffa51f" opacity=".95"/>
+        <circle cx="200" cy="200" r="17" fill="#0b0d10" stroke="#ffa51f" stroke-width="2"/>
+        <circle cx="200" cy="200" r="5" fill="#ffa51f"/>
+      </g>
+    </svg>
+      </div>
+
+      <figure class="ciferblat ciferblat--foto">
+          <img src="images/ciferblat-obuka.jpg" width="250" height="250" alt="Vozilo Auto škole Dule sa oznakom obuke vozača">
+          <svg class="ciferblat__prsten" viewBox="0 0 400 400" aria-hidden="true"><circle cx="200" cy="200" r="194" fill="none" stroke="currentColor" stroke-width="2" opacity=".5"/><path d="M200.0 14.0 L200.0 30.0 M219.4 15.0 L218.6 23.0 M238.7 18.1 L237.0 25.9 M257.5 23.1 L255.0 30.7 M275.7 30.1 L272.4 37.4 M293.0 38.9 L285.0 52.8 M309.3 49.5 L304.6 56.0 M324.5 61.8 L319.1 67.7 M338.2 75.5 L332.3 80.9 M350.5 90.7 L344.0 95.4 M361.1 107.0 L347.2 115.0 M369.9 124.3 L362.6 127.6 M376.9 142.5 L369.3 145.0 M381.9 161.3 L374.1 163.0 M385.0 180.6 L377.0 181.4 M386.0 200.0 L370.0 200.0 M385.0 219.4 L377.0 218.6 M381.9 238.7 L374.1 237.0 M376.9 257.5 L369.3 255.0 M369.9 275.7 L362.6 272.4 M361.1 293.0 L347.2 285.0 M350.5 309.3 L344.0 304.6 M338.2 324.5 L332.3 319.1 M324.5 338.2 L319.1 332.3 M309.3 350.5 L304.6 344.0 M293.0 361.1 L285.0 347.2 M275.7 369.9 L272.4 362.6 M257.5 376.9 L255.0 369.3 M238.7 381.9 L237.0 374.1 M219.4 385.0 L218.6 377.0 M200.0 386.0 L200.0 370.0 M180.6 385.0 L181.4 377.0 M161.3 381.9 L163.0 374.1 M142.5 376.9 L145.0 369.3 M124.3 369.9 L127.6 362.6 M107.0 361.1 L115.0 347.2 M90.7 350.5 L95.4 344.0 M75.5 338.2 L80.9 332.3 M61.8 324.5 L67.7 319.1 M49.5 309.3 L56.0 304.6 M38.9 293.0 L52.8 285.0 M30.1 275.7 L37.4 272.4 M23.1 257.5 L30.7 255.0 M18.1 238.7 L25.9 237.0 M15.0 219.4 L23.0 218.6 M14.0 200.0 L30.0 200.0 M15.0 180.6 L23.0 181.4 M18.1 161.3 L25.9 163.0 M23.1 142.5 L30.7 145.0 M30.1 124.3 L37.4 127.6 M38.9 107.0 L52.8 115.0 M49.5 90.7 L56.0 95.4 M61.8 75.5 L67.7 80.9 M75.5 61.8 L80.9 67.7 M90.7 49.5 L95.4 56.0 M107.0 38.9 L115.0 52.8 M124.3 30.1 L127.6 37.4 M142.5 23.1 L145.0 30.7 M161.3 18.1 L163.0 25.9 M180.6 15.0 L181.4 23.0" stroke="currentColor" stroke-width="2.4" opacity=".55"/></svg>
+          <figcaption>B · BE · C · CE</figcaption>
+        </figure>
+    </div>
+
+    <p class="hero__slogan">
+      Biraš instruktora, vozilo i termin obuke. Osam kategorija, dve lokacije,
+      i tim koji odgovara na svako pitanje — detaljno i razumljivo.
+    </p>
+    <div class="hero__akcije">
+      <a class="dugme dugme--puno" href="#upis">Upiši se <span class="strelica" aria-hidden="true">&rarr;</span></a>
+      <a class="dugme" href="#kategorije">Vidi kategorije</a>
+    </div>
+    <ul class="hero__meta">
+      <li><b>060 6 037 037</b></li>
+      <li>Kruševac &middot; <b>pon–pet 09–17</b>, sub 09–14</li>
+      <li>Varvarin &middot; <b>pon–pet 08–15</b></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==========================================================
+     INSTRUMENT TABLA
+     ========================================================== -->
+<section class="sekcija" aria-label="Škola u brojkama">
+  <div class="omot">
+    <div class="tabla otkrij" id="tabla">
+      <div class="merac">
+        <div class="merac__broj" data-cilj="8">0</div>
+        <div class="merac__opis">Kategorija</div>
+        <div class="merac__skala"><i data-udeo="100"></i></div>
+      </div>
+      <div class="merac merac--crveno">
+        <div class="merac__broj merac__broj--tekst">Veliki vozni park</div>
+        <div class="merac__opis">Automobili, motocikli i teretno vozilo</div>
+        <div class="merac__skala"><i data-udeo="90"></i></div>
+      </div>
+      <div class="merac merac--zuto">
+        <div class="merac__broj" data-cilj="2">0</div>
+        <div class="merac__opis">Lokacije</div>
+        <div class="merac__skala"><i data-udeo="45"></i></div>
+      </div>
+      <div class="merac merac--zeleno">
+        <div class="merac__broj" data-cilj="80">0<small>%+</small></div>
+        <div class="merac__opis">Upisanih na preporuku</div>
+        <div class="merac__skala"><i data-udeo="80"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     KATEGORIJE
+     ========================================================== -->
+<section class="sekcija sekcija--foto" id="kategorije">
+  <img class="sekcija__foto" width="1024" height="683" loading="lazy" aria-hidden="true"
+       alt="" src="images/kategorije-pozadina.jpg">
+  <div class="omot">
+    <p class="oznaka">Kategorije</p>
+    <h2 class="naslov-sekcije">Osam kategorija, jedan tim</h2>
+    <p class="uvod">Izaberi kategoriju i vidi uslove i trajanje obuke.</p>
+
+    <div class="kategorije otkrij" role="tablist" aria-label="Izbor kategorije" id="listaKategorija">
+      <button class="kat" role="tab" id="tab-A"  aria-controls="panelKat" aria-selected="true"  data-kat="A"><span class="kat__slovo">A</span><span class="kat__opis">Motocikli preko 15 kW</span></button>
+      <button class="kat" role="tab" id="tab-A1" aria-controls="panelKat" aria-selected="false" data-kat="A1"><span class="kat__slovo">A1</span><span class="kat__opis">Laki motocikli</span></button>
+      <button class="kat" role="tab" id="tab-A2" aria-controls="panelKat" aria-selected="false" data-kat="A2"><span class="kat__slovo">A2</span><span class="kat__opis">Motocikli srednje snage</span></button>
+      <button class="kat" role="tab" id="tab-AM" aria-controls="panelKat" aria-selected="false" data-kat="AM"><span class="kat__slovo">AM</span><span class="kat__opis">Mopedi</span></button>
+      <button class="kat" role="tab" id="tab-B"  aria-controls="panelKat" aria-selected="false" data-kat="B"><span class="kat__slovo">B</span><span class="kat__opis">Putnička vozila</span></button>
+      <button class="kat" role="tab" id="tab-BE" aria-controls="panelKat" aria-selected="false" data-kat="BE"><span class="kat__slovo">BE</span><span class="kat__opis">Vozilo s prikolicom</span></button>
+      <button class="kat" role="tab" id="tab-C"  aria-controls="panelKat" aria-selected="false" data-kat="C"><span class="kat__slovo">C</span><span class="kat__opis">Teretna vozila</span></button>
+      <button class="kat" role="tab" id="tab-CE" aria-controls="panelKat" aria-selected="false" data-kat="CE"><span class="kat__slovo">CE</span><span class="kat__opis">Teretno s prikolicom</span></button>
+    </div>
+
+    <div class="kat-panel" id="panelKat" role="tabpanel" aria-labelledby="tab-A" tabindex="0">
+      <!-- sadržaj popunjava main.js iz objekta KATEGORIJE -->
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     PUT DO DOZVOLE
+     ========================================================== -->
+<section class="sekcija sekcija--dozvola" id="obuka">
+  <div class="dozvola-pozadina" aria-hidden="true">
+    <img class="dozvola-crtez" src="images/vozacka-dozvola.svg" alt="" aria-hidden="true"
+         loading="lazy" width="1000" height="631">
+  </div>
+  <div class="omot">
+    <p class="oznaka">Kako do vozačke dozvole</p>
+    <h2 class="naslov-sekcije">Šest etapa do dozvole</h2>
+    <p class="uvod">Redosled je isti za svaku kategoriju — razlikuju se samo broj časova i uslovi.</p>
+
+    <div class="put">
+      <article class="etapa otkrij">
+        <div class="etapa__tacka">01</div>
+        <h3>Upis</h3>
+        <p>Prijavljuješ se online ili u poslovnici u Kruševcu ili Varvarinu. Lična karta je obavezna i nosiš je tokom cele obuke.</p>
+      </article>
+      <article class="etapa otkrij">
+        <div class="etapa__tacka">02</div>
+        <h3>Teorijska nastava</h3>
+        <p>Za B kategoriju bez prethodne dozvole — 40 časova teorije. Predavanja možeš pratiti i online, koliko god puta ti treba.</p>
+      </article>
+      <article class="etapa otkrij">
+        <div class="etapa__tacka">03</div>
+        <h3>Polaganje testa</h3>
+        <p>Posle završene teorije polažeš test iz poznavanja saobraćajnih propisa.</p>
+      </article>
+      <article class="etapa otkrij">
+        <div class="etapa__tacka">04</div>
+        <h3>Praktična obuka</h3>
+        <p>Za B kategoriju — 40 časova vožnje. Biraš instruktora, vozilo i termin.</p>
+      </article>
+      <article class="etapa otkrij">
+        <div class="etapa__tacka">05</div>
+        <h3>Ispit iz vožnje</h3>
+        <p>Instruktori te pripremaju i za tremu na ispitu, i za delove vožnje na koje ispitivači posebno obraćaju pažnju.</p>
+      </article>
+      <article class="etapa otkrij">
+        <div class="etapa__tacka">06</div>
+        <h3>Vozačka dozvola</h3>
+        <p>Do 21. godine dobijaš probnu vozačku dozvolu, sa ograničenjima koja su navedena uz B kategoriju.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     CINEMATIC PRELAZ
+     ========================================================== -->
+<section class="prelaz" aria-label="Vozni park Auto škole Dule na putu">
+  <img class="prelaz__foto" width="1024" height="683" loading="lazy"
+       alt="Vozila Auto škole Dule poređana na parkingu u sumrak"
+       src="images/prelaz-put.jpg">
+  <div class="prelaz__sadrzaj">
+    <img class="prelaz__logo" width="234" height="242" loading="lazy"
+         alt="Auto škola Dule" src="images/logo.png">
+  </div>
+</section>
+
+<!-- ==========================================================
+     ONLINE PREDAVANJA + KONDICIONI ČASOVI
+     ========================================================== -->
+<section class="sekcija sekcija--tiha">
+  <div class="omot">
+    <div class="ponude otkrij">
+      <article class="ponuda">
+        <svg class="ponuda__ikona" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/>
+        </svg>
+        <h3>Online predavanja</h3>
+        <p>Sva predavanja možeš poslušati i odgledati od kuće, koliko god puta ti je potrebno.</p>
+        <a class="dugme" href="https://autoskoladule.rs/video-lekcije/">Otvori predavanja <span class="strelica" aria-hidden="true">→</span></a>
+      </article>
+
+      <article class="ponuda">
+        <svg class="ponuda__ikona" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+        </svg>
+        <h3>Kondicioni časovi</h3>
+        <p>
+          Imaš vozačku dozvolu, a ne voziš? Praktičnu obuku vode licencirani instruktori
+          koji znanje svake godine obnavljaju na seminarima Agencije za bezbednost saobraćaja.
+          Broj časova se dogovara — obuka se prilagođava mogućnostima svakog kandidata.
+        </p>
+        <p class="ponuda__sitno">
+          Za dolazak ti trebaju lična karta i vozačka dozvola.
+          Termine i cenu časa dogovaraš direktno sa školom.
+        </p>
+        <div class="ponuda__akcije">
+          <a class="dugme" href="tel:+381606037037">060 6 037 037</a>
+          <a class="dugme" href="#kontakt">Zakaži termin <span class="strelica" aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     TIM
+     ========================================================== -->
+<section class="sekcija" id="tim">
+  <div class="omot">
+    <p class="oznaka">Naš tim</p>
+    <h2 class="naslov-sekcije">Ljudi koji sede desno</h2>
+    <p class="uvod">Osmoro ljudi — instruktori, predavači, ispitivači i administracija. Biraš instruktora s kojim ćeš voziti.</p>
+
+    <div class="tim otkrij">
+      <article class="clan clan--kartica">
+        <img class="clan__grafika" width="560" height="791" loading="lazy"
+             alt="Dušan Zdravković, direktor · osnivač Auto škole Dule"
+             src="images/direktor-dule.jpg">
+            </article>
+
+      <article class="clan clan--kartica">
+        <img class="clan__grafika" width="560" height="840" loading="lazy"
+             alt="Bojan Radosavljević, instruktor / ispitivač Auto škole Dule"
+             src="images/bojan-radosavljevic.jpg">
+            </article>
+
+      <article class="clan clan--kartica">
+        <img class="clan__grafika" width="560" height="841" loading="lazy"
+             alt="Marko Mladenović, instruktor / predavač / ispitivač Auto škole Dule"
+             src="images/marko-mladenovic.jpg">
+            </article>
+
+      <article class="clan clan--kartica">
+        <img class="clan__grafika" width="560" height="841" loading="lazy"
+             alt="Vlasta Mitić, instruktor Auto škole Dule"
+             src="images/vlasta-mitic.jpg">
+            </article>
+
+      <article class="clan clan--kartica">
+        <img class="clan__grafika" width="560" height="841" loading="lazy"
+             alt="Milena Mladenović, instruktor Auto škole Dule"
+             src="images/milena-mladenovic.jpg">
+            </article>
+
+      <article class="clan clan--kartica">
+        <img class="clan__grafika" width="560" height="841" loading="lazy"
+             alt="Veljko Petrović, instruktor Auto škole Dule"
+             src="images/veljko-petrovic.jpg">
+            </article>
+
+      <article class="clan clan--kartica">
+        <img class="clan__grafika" width="560" height="841" loading="lazy"
+             alt="Marijana Simonović, predavač Auto škole Dule"
+             src="images/marijana-simonovic.jpg">
+            </article>
+
+      <article class="clan clan--kartica">
+        <img class="clan__grafika" width="560" height="700" loading="lazy"
+             alt="Tatjana Vučković, administrator Auto škole Dule"
+             src="images/tatjana-vuckovic.jpg">
+            </article>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     CENOVNIK
+     ========================================================== -->
+<section class="sekcija" id="cenovnik">
+  <div class="omot">
+    <p class="oznaka">Cenovnik</p>
+    <h2 class="naslov-sekcije">Cene obuke po kategorijama</h2>
+    <p class="uvod">
+      Cena zavisi od toga da li već imaš vozačku dozvolu i za koju kategoriju.
+      U cenu su uračunate i takse MUP-a za polaganje teorijskog i praktičnog ispita.
+    </p>
+
+    <div class="cenovnik-omot">
+      <table class="cenovnik">
+        <caption class="vizuelno-skriveno">
+          Cenovnik obuke po kategorijama, u dinarima. Cena zavisi od toga koju kategoriju kandidat već poseduje.
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col" rowspan="2">Kategorija</th>
+            <th scope="col" rowspan="2">Nema vozačku<br>dozvolu</th>
+            <th scope="colgroup" colspan="8">Već ima dozvolu za kategoriju</th>
+          </tr>
+          <tr>
+            <th scope="col">AM</th>
+            <th scope="col">A1</th>
+            <th scope="col">A2</th>
+            <th scope="col">A</th>
+            <th scope="col">B</th>
+            <th scope="col">BE</th>
+            <th scope="col">C</th>
+            <th scope="col">CE</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">AM</th>
+          <td class="cena-osnovna">39.900</td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td>20.050</td>
+          <td>20.050</td>
+          <td>20.050</td>
+          <td>20.050</td>
+        </tr>
+        <tr>
+          <th scope="row">A1</th>
+          <td class="cena-osnovna">62.000</td>
+          <td>21.900</td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td>47.150</td>
+          <td>47.150</td>
+          <td>47.150</td>
+          <td>47.150</td>
+        </tr>
+        <tr>
+          <th scope="row">A2</th>
+          <td class="cena-osnovna">79.000</td>
+          <td>33.800</td>
+          <td>21.900</td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td>64.150</td>
+          <td>64.150</td>
+          <td>64.150</td>
+          <td>64.150</td>
+        </tr>
+        <tr>
+          <th scope="row">A</th>
+          <td class="cena-osnovna">96.000</td>
+          <td>44.000</td>
+          <td>33.800</td>
+          <td>21.900</td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td>81.150</td>
+          <td>81.150</td>
+          <td>81.150</td>
+          <td>81.150</td>
+        </tr>
+        <tr>
+          <th scope="row">B</th>
+          <td class="cena-osnovna">92.000</td>
+          <td>69.150</td>
+          <td>69.150</td>
+          <td>61.150</td>
+          <td>54.800</td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td>45.150</td>
+          <td>77.150</td>
+        </tr>
+        <tr>
+          <th scope="row">BE</th>
+          <td class="cena-osnovna"><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td>29.800</td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">C</th>
+          <td class="cena-osnovna"><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td>80.300</td>
+          <td>80.300</td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">CE</th>
+          <td class="cena-osnovna"><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td><span class="prazno">&mdash;</span></td>
+          <td>50.750</td>
+          <td><span class="prazno">&mdash;</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cenovnik-pomoc" aria-hidden="true">Prevuci tabelu levo-desno &rarr;</p>
+
+    <ul class="cenovnik-note">
+      <li>Sve cene su izražene u dinarima.</li>
+      <li>U cenu su uračunate takse MUP-a za teorijski i praktični ispit.</li>
+      <li>Prazno polje znači da ta kombinacija kategorija nije predviđena cenovnikom.</li>
+    </ul>
+
+    <div class="hero__akcije hero__akcije--levo">
+      <a class="dugme dugme--puno" href="#upis">Upiši se <span class="strelica" aria-hidden="true">&rarr;</span></a>
+      <a class="dugme" href="tel:+381606037037">Pozovi 060 6 037 037</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     LOKACIJE
+     ========================================================== -->
+<section class="sekcija sekcija--tiha" id="lokacije">
+  <div class="omot">
+    <p class="oznaka">Lokacije</p>
+    <h2 class="naslov-sekcije">Kruševac i Varvarin</h2>
+    <p class="uvod">Ista škola, isti tim, dve poslovnice.</p>
+
+    <div class="lokacije otkrij">
+      <article class="lokacija">
+        <div class="mapa" id="mapa-krusevac" data-embed="https://maps.google.com/maps?q=Slobodana%20Jovanovi%C4%87a%206%2C%20Kru%C5%A1evac&amp;t=m&amp;z=16&amp;output=embed&amp;iwloc=near">
+          <img class="mapa__crtez" src="images/mapa-krusevac.svg" alt="Stilizovana ilustracija mape — poslovnica u Kruševcu" loading="lazy" width="800" height="520">
+        </div>
+        <div class="lokacija__telo">
+          <h3>Kruševac</h3>
+          <dl>
+            <dt>Adresa</dt><dd>Slobodana Jovanovića 6</dd>
+            <dt>Telefon</dt><dd><a href="tel:+381606037037">060 6 037 037</a></dd>
+            <dt>Mejl</dt><dd><a href="mailto:autoskoladule@gmail.com">autoskoladule@gmail.com</a></dd>
+            <dt>Radno vreme</dt><dd>pon–pet 09–17 h &middot; subota 09–14 h</dd>
+          </dl>
+          <div class="mapa__akcije">
+            <a class="dugme dugme--puno" href="https://www.google.com/maps/dir/?api=1&amp;destination=Slobodana%20Jovanovi%C4%87a%206%2C%20Kru%C5%A1evac" target="_blank" rel="noopener">
+              Pokreni navigaciju <span class="strelica" aria-hidden="true">&rarr;</span></a>
+            <a class="dugme" href="https://www.google.com/maps/search/?api=1&amp;query=Slobodana%20Jovanovi%C4%87a%206%2C%20Kru%C5%A1evac" target="_blank" rel="noopener">Otvori u Google Maps</a>
+            <button class="dugme dugme--tiho" type="button" data-mapa="mapa-krusevac">Prikaži pravu mapu</button>
+          </div>
+          <p class="mapa__napomena">
+            Ilustracija je stilizovana i ne prikazuje stvarni raspored ulica.
+            Za tačnu lokaciju i rutu koristi dugmad iznad.
+          </p>
+        </div>
+      </article>
+
+      <article class="lokacija">
+        <div class="mapa" id="mapa-varvarin" data-embed="https://maps.google.com/maps?q=Slobode%2094%2C%20Varvarin&amp;t=m&amp;z=16&amp;output=embed&amp;iwloc=near">
+          <img class="mapa__crtez" src="images/mapa-varvarin.svg" alt="Stilizovana ilustracija mape — poslovnica u Varvarinu" loading="lazy" width="800" height="520">
+        </div>
+        <div class="lokacija__telo">
+          <h3>Varvarin</h3>
+          <dl>
+            <dt>Adresa</dt><dd>Slobode 94</dd>
+            <dt>Telefon</dt><dd><a href="tel:+381606037037">060 6 037 037</a></dd>
+            <dt>Mejl</dt><dd><a href="mailto:autoskoladule@gmail.com">autoskoladule@gmail.com</a></dd>
+            <dt>Radno vreme</dt><dd>pon–pet 08–15 h &middot; subotom ne radimo</dd>
+          </dl>
+          <div class="mapa__akcije">
+            <a class="dugme dugme--puno" href="https://www.google.com/maps/dir/?api=1&amp;destination=Slobode%2094%2C%20Varvarin" target="_blank" rel="noopener">
+              Pokreni navigaciju <span class="strelica" aria-hidden="true">&rarr;</span></a>
+            <a class="dugme" href="https://www.google.com/maps/search/?api=1&amp;query=Slobode%2094%2C%20Varvarin" target="_blank" rel="noopener">Otvori u Google Maps</a>
+            <button class="dugme dugme--tiho" type="button" data-mapa="mapa-varvarin">Prikaži pravu mapu</button>
+          </div>
+          <p class="mapa__napomena">
+            Ilustracija je stilizovana i ne prikazuje stvarni raspored ulica.
+            Za tačnu lokaciju i rutu koristi dugmad iznad.
+          </p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     FAQ
+     ========================================================== -->
+<section class="sekcija sekcija--tiha" id="faq">
+  <div class="omot">
+    <p class="oznaka">Česta pitanja</p>
+    <h2 class="naslov-sekcije">Pitanja pre upisa</h2>
+
+    <div class="faq">
+      <details>
+        <summary>Sa koliko godina mogu da se upišem za B kategoriju?</summary>
+        <div class="faq__odgovor">Upis je moguć sa navršenih 16 godina, a praktični ispit možeš polagati sa navršenih 17 godina. Lična karta je obavezna i nosiš je tokom cele obuke.</div>
+      </details>
+      <details>
+        <summary>Koliko traje obuka za B kategoriju?</summary>
+        <div class="faq__odgovor">40 časova teorijske nastave, polaganje testa, 40 časova praktične obuke i polaganje vožnje.</div>
+      </details>
+      <details>
+        <summary>Mogu li da biram instruktora i termin?</summary>
+        <div class="faq__odgovor">Da. Biraš instruktora, vozilo i termin obuke.</div>
+      </details>
+      <details>
+        <summary>Mogu li teoriju da slušam od kuće?</summary>
+        <div class="faq__odgovor">Da. Predavanja su dostupna online i možeš ih odgledati koliko god puta ti je potrebno.</div>
+      </details>
+      <details>
+        <summary>Šta su kondicioni časovi?</summary>
+        <div class="faq__odgovor">Časovi vožnje za one koji već imaju vozačku dozvolu, ali duže ne voze i žele da vrate sigurnost za volanom.</div>
+      </details>
+      <details>
+        <summary>Mogu li za A kategoriju da vežbam na svom motoru?</summary>
+        <div class="faq__odgovor">Ne. Po važećem pravilniku obuka se izvodi isključivo na vozilu auto škole. Škola obezbeđuje kacigu svih veličina i bluetooth vezu.</div>
+      </details>
+      <details>
+        <summary>Koja ograničenja nosi probna vozačka dozvola?</summary>
+        <div class="faq__odgovor">Zabrana vožnje između 23:00 i 06:00, zabrana korišćenja telefona, zabrana vožnje pod dejstvom alkohola, najviše 110 km/h na auto-putu i 90 km/h na regionalnom putu. Sa probnom dozvolom se ne mogu upisivati druge kategorije.</div>
+      </details>
+      <details>
+        <summary>Koliko košta obuka?</summary>
+        <div class="faq__odgovor">Zavisi od kategorije i od toga da li već imaš vozačku dozvolu. Bez prethodne dozvole B kategorija je 92.000 dinara, A kategorija 96.000, a AM 39.900. Ako već imaš neku kategoriju, cena je niža — ceo cenovnik je u sekciji „Cenovnik". U cenu su uračunate i takse MUP-a za oba ispita.</div>
+      </details>
+      <details>
+        <summary>Koja dokumenta su potrebna za upis?</summary>
+        <div class="faq__odgovor">Lična karta je obavezna i nosiš je tokom cele obuke. Za maloletne kandidate potreban je i roditelj ili staratelj pri potpisivanju ugovora. Lekarsko uverenje za upravljanje motornim vozilima potrebno je pre početka praktične obuke, a izdaju ga za to specijalizovane zdravstvene ustanove.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     VELIKI CTA
+     ========================================================== -->
+<section class="sekcija cta-upis" id="upis">
+  <!-- Put u perspektivi: asfalt, bankine, ivične linije i središnja oznaka.
+       Sve je čist CSS sa clip-path geometrijom — radi i bez JavaScripta. -->
+  <div class="put-cta" aria-hidden="true">
+    <div class="put-cta__nebo"></div>
+    <div class="put-cta__horizont"></div>
+    <div class="put-cta__bankina put-cta__bankina--levo"></div>
+    <div class="put-cta__bankina put-cta__bankina--desno"></div>
+    <div class="put-cta__asfalt"></div>
+    <div class="put-cta__ivica put-cta__ivica--levo"></div>
+    <div class="put-cta__ivica put-cta__ivica--desno"></div>
+    <div class="put-cta__oznake">
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+    </div>
+    <div class="put-cta__izmaglica"></div>
+  </div>
+
+  <div class="omot">
+    <div class="semafor" aria-hidden="true"><i></i><i></i><i></i></div>
+    <h2>Spreman/na za prvi kilometar?</h2>
+    <p>Upis traje par minuta. Ostalo je na putu.</p>
+
+    <div class="cta-upis__akcije">
+      <a class="dugme dugme--puno" href="https://autoskoladule.rs/online-upis/">Online upis <span class="strelica" aria-hidden="true">→</span></a>
+      <a class="dugme" href="mailto:autoskoladule@gmail.com?subject=Upis%20u%20auto%20%C5%A1kolu&amp;body=Zdravo%2C%0A%0AZanima%20me%20upis%20u%20auto%20%C5%A1kolu.%0A%0AIme%20i%20prezime%3A%20%0AKategorija%3A%20%0ALokacija%20(Kru%C5%A1evac%20ili%20Varvarin)%3A%20%0ATelefon%3A%20%0A%0AHvala%20unapred.">Javi se na mejl</a>
+      <a class="dugme" href="tel:+381606037037">060 6 037 037</a>
+    </div>
+
+    <p class="cta-upis__mejl">
+      ili nam piši direktno na
+      <a href="mailto:autoskoladule@gmail.com">autoskoladule@gmail.com</a>
+    </p>
+  </div>
+</section>
+
+<!-- ==========================================================
+     KONTAKT
+     ========================================================== -->
+<section class="sekcija" id="kontakt">
+  <div class="omot">
+    <p class="oznaka">Kontakt</p>
+    <h2 class="naslov-sekcije">Javi se</h2>
+
+    <div class="kontakt-mreza">
+      <form id="formaKontakt" novalidate>
+        <div class="polje">
+          <label for="ime">Ime i prezime</label>
+          <input type="text" id="ime" name="ime" autocomplete="name" required>
+        </div>
+        <div class="polje">
+          <label for="telefon">Telefon</label>
+          <input type="tel" id="telefon" name="telefon" autocomplete="tel" required>
+        </div>
+        <div class="polje">
+          <label for="email">Mejl</label>
+          <input type="email" id="email" name="email" autocomplete="email">
+        </div>
+        <div class="polje">
+          <label for="lokacija">Poslovnica</label>
+          <select id="lokacija" name="lokacija">
+            <option>Kruševac</option>
+            <option>Varvarin</option>
+          </select>
+        </div>
+        <div class="polje">
+          <label for="poruka">Poruka</label>
+          <textarea id="poruka" name="poruka" required></textarea>
+        </div>
+        <button class="dugme dugme--puno" type="submit">Pošalji poruku</button>
+        <p class="forma-nota" id="statusForme" role="status">
+          PLACEHOLDER: forma još nije povezana sa serverom. Povezati na mejl
+          autoskoladule@gmail.com (PHP skripta, Formspree ili slično) i dodati zaštitu od spama.
+          Do tada dugme sastavlja mejl i otvara ga u programu za poštu koji korisnik već koristi.
+        </p>
+      </form>
+
+      <div class="podaci-lista">
+        <div class="podatak">
+          <span>Telefon</span>
+          <a href="tel:+381606037037">060 6 037 037</a>
+        </div>
+        <div class="podatak">
+          <span>Mejl</span>
+          <a href="mailto:autoskoladule@gmail.com">autoskoladule@gmail.com</a>
+        </div>
+        <div class="podatak">
+          <span>Kruševac</span>
+          Slobodana Jovanovića 6 &middot; pon–pet 09–17, sub 09–14
+        </div>
+        <div class="podatak">
+          <span>Varvarin</span>
+          Slobode 94 &middot; pon–pet 08–15, subotom ne radimo
+        </div>
+        <div>
+          <span class="vizuelno-skriveno">Društvene mreže</span>
+          <div class="mreze">
+            <a href="https://www.facebook.com/dule.autoskola/" aria-label="Facebook">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 22v-9h3l.5-4H13V6.5c0-1.1.3-1.8 1.9-1.8H17V1.1C16.6 1.1 15.3 1 13.9 1 10.9 1 9 2.8 9 6.1V9H6v4h3v9z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/autoskoladule/" aria-label="Instagram">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://www.youtube.com/channel/UC92BBUXjT8KW2FbSgrHSTdQ" aria-label="YouTube">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 12s0-3.6-.5-5.3a2.8 2.8 0 0 0-2-2C18.8 4.2 12 4.2 12 4.2s-6.8 0-8.5.5a2.8 2.8 0 0 0-2 2C1 8.4 1 12 1 12s0 3.6.5 5.3c.3 1 1 1.7 2 2 1.7.5 8.5.5 8.5.5s6.8 0 8.5-.5a2.8 2.8 0 0 0 2-2C23 15.6 23 12 23 12zM9.8 15.3V8.7l5.7 3.3z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ==========================================================
+     PODNOŽJE
+     ========================================================== -->
+<footer class="podnozje">
+  <div class="omot">
+    <div class="podnozje__mreza">
+      <div>
+        <a class="logo logo--podnozje" href="#pocetna" aria-label="Auto škola Dule — početna">
+          <img class="logo__slika" alt="Auto škola Dule" width="234" height="242" loading="lazy"
+               src="images/logo.png"
+               onerror="this.closest('.logo').classList.add('logo--bez-slike')">
+          <span class="logo__tekst" aria-hidden="true">Auto škola <b>Dule</b></span>
+        </a>
+        <p class="kontakt__napomena">
+          Obuka vozača u Kruševcu i Varvarinu. Kategorije A, A1, A2, AM, B, BE, C i CE.
+        </p>
+      </div>
+
+      <div>
+        <h4>Sajt</h4>
+        <ul>
+          <li><a href="#kategorije">Kategorije</a></li>
+          <li><a href="#obuka">Obuka</a></li>
+          <li><a href="#tim">Instruktori</a></li>
+          <li><a href="#cenovnik">Cenovnik</a></li>
+          <li><a href="#faq">Česta pitanja</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Upis i nastava</h4>
+        <ul>
+          <li><a href="https://autoskoladule.rs/online-upis/">Online upis</a></li>
+          <li><a href="https://autoskoladule.rs/video-lekcije/">Online predavanja</a></li>
+          <li><a href="https://autoskoladule.rs/dodatni-casovi-voznje/">Kondicioni časovi</a></li>
+          <li><a href="https://autoskoladule.rs/galerija/">Galerija</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Kontakt</h4>
+        <address>
+          <strong>Kruševac</strong><br>
+          Slobodana Jovanovića 6<br>
+          <strong>Varvarin</strong><br>
+          Slobode 94<br>
+          <a href="tel:+381606037037">060 6 037 037</a><br>
+          <a href="mailto:autoskoladule@gmail.com">autoskoladule@gmail.com</a>
+        </address>
+      </div>
+    </div>
+
+    <div class="podnozje__dno">
+      <span>&copy; <span id="godina">2026</span> Auto škola Dule</span>
+      <span>Prototip redizajna &middot; podaci preuzeti sa autoskoladule.rs</span>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

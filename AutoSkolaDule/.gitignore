@@ -1,0 +1,13 @@
+# sistemski fajlovi
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# uređivači
+.vscode/
+.idea/
+*.swp
+*~
+
+# arhive
+*.zip
